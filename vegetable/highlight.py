@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections.abc import Iterable
 from colored import Style
 
 
@@ -123,3 +124,47 @@ class HighlightTrend(Highlighter):
                 elif value < prev:
                     style = self.falling
         return self.apply(string, style)
+
+
+class HighlightMinMax(Highlighter):
+    def __init__(self, min=None, max=None, reset=True):
+        super(HighlightMinMax, self).__init__(reset)
+        self.min_style = min
+        self.max_style = max
+
+    def __call__(self, value, string, column, row_idx):
+        if self.min_style is None and self.max_style is None:
+            return string
+
+        if column.table.limit is None:
+            data = column.table.data
+        else:
+            data = column.table.data[: column.table.limit]
+
+        styles = []
+
+        def append_style(style):
+            if isinstance(style, Iterable):
+                for s in style:
+                    styles.append(s)
+            else:
+                styles.append(style)
+
+        column_values = [x.get(column.name) for x in data]
+        if self.min_style is not None:
+            try:
+                if value <= min(filter(lambda x: x is not None, column_values)):
+                    append_style(self.min_style)
+            except:
+                pass
+        if self.max_style is not None:
+            try:
+                if value >= max(filter(lambda x: x is not None, column_values)):
+                    append_style(self.max_style)
+            except:
+                pass
+
+        if len(styles) > 0:
+            return self.apply(string, styles)
+        else:
+            return string
