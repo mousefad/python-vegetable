@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 #
+# Note: this example requires the use of the "click" command line option
+# processing library. "pip install click" to install it.
+#
 # Example use of vegetable module. Extract some values from /proc/net/dev
 # and plot them in a table.
 #

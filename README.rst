@@ -1,6 +1,25 @@
 Format tabular data in various ways with explicitly defined columns
 that can each have their own expected types, formatting and highlighting.
 
+Features
+--------
+
+-  Specify columns with data types / widths, formatting functions,
+   null-value indicators and processing exception indicators.
+-  Auto-sizing columns when presented with a full table of data.
+-  Ability to format individual rows for output before all data has 
+   been gathered.
+-  Quick switching of output formats between tabular text, JSON,
+   YAML & delimited fields.
+-  Value highlighting rules: by ranges, trends, min/max and others.
+
+
+TODO
+----
+
+-  Multi-column sorting
+
+
 Building & Running
 ==================
 
@@ -20,7 +39,8 @@ Complete Data Mode
 Values can be added to a `Table()` instace directly row-by-row with `row()`. 
 When `__str__()` is invoked, the whole table will be formatted and returned. 
 An advantage of this approach is that column widths will be automatically 
-re-sized if needed (for columns where `expand=True` was used on creation).
+re-sized if needed (for columns where `expand=True` was used on column 
+creation).
 
 The output format can also be easily switched:
 

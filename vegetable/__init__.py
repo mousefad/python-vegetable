@@ -1,31 +1,6 @@
 """Tabular data formatter with column types/formatting options and other features."""
 
-"""
-
-Features
---------
-
-* Different output modes:
-  - TableFormat
-  - DelimitedFormat
-  - JsonFormat
-  - YamlFormat
-* Highlighters (to chages style of values):
-  - HighlightAll (every value in a column)
-  - HighlightOddRows
-  - HighlightEvenRows
-  - HighlightRanges (colorize numerical value ranges)
-  - HighlightTrend (colorize rising and falling values)
-
-TODO
-----
-* Currency type (with symbol / prefix / decimals / precision)
-* Expression columns (e.g. "LinePrice = Qty * UnitPrice")
-* Sorting
-* Output just header / separator / immediate row
-
-
-"""
+__version__ = "1.0"
 
 import sys
 import re
