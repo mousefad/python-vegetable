@@ -64,7 +64,7 @@ class DelimitedOutput(OutputFormatter):
             data = table.data 
         elif limit > 0:
             data = table.data[:limit]
-        else
+        else:
             data = table.data[limit:]
         s = ""
         if self.show_header:

@@ -69,7 +69,14 @@ class Table:
         return self.output.row(self, record, row_idx)
 
     def sort(self, key, reverse=False):
-        self.data.sort(key=lambda x: x[key], reverse=reverse)
+        column = [c for c in self.columns if c.name == key][0]
+        nvl = {
+            float: lambda x: 0. if x is None else x,
+            int: lambda x: 0 if x is None else x,
+        }.get(column.type)
+        if nvl is None:
+            nvl = lambda x: "" if x is None else x
+        self.data.sort(key=lambda x: column.type(nvl(x.get(key))), reverse=reverse)
 
     def __str__(self):
         return self.output(self, limit=self.limit)

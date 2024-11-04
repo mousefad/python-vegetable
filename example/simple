@@ -18,6 +18,9 @@ def main():
     t.row(["Dodgy pub geezer", 5.00])
     t.row(["Imaginary supplier", None])
 
+    t.sort("Cost", reverse=True)
+
+    print("Table of costs with max and min highlighted, and sorted by Cost.\n")
     print(t)
 
 
