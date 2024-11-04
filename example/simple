@@ -10,13 +10,13 @@ def main():
 
     t = Table()
     t.column("Supplier")
-    t.column("Cost", type=float, scale=2, nvl="-", highlighter=minmax)
+    t.column("Cost", type=float, nvl="-", highlighter=minmax)
 
-    t.row(["Convenience store", 12.99])
-    t.row(["Wholesaler", "10.29"])
     t.row(["Internet store", 11.56])
+    t.row(["Convenience store", 12.99])
     t.row(["Dodgy pub geezer", 5.00])
     t.row(["Imaginary supplier", None])
+    t.row(["Wholesaler", "10.29"])
 
     t.sort("Cost", reverse=True)
 
