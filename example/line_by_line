@@ -14,8 +14,7 @@ def get_things():
 t = Table()
 t.column("Item Desc", width=25)  # must choose wisely!
 t.column("Rating", type=int)
-print(t.header_str())
-print(t.separator_str())
+print(t.mast_head())
 
 for desc, num in get_things():  # generator what receives events
     print(t.row_str([desc, num]))

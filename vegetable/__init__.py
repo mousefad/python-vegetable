@@ -49,6 +49,9 @@ class Table:
     def separator_str(self):
         return self.output.separator(self)
 
+    def mast_head(self):
+        return self.output.mast_head(self)
+
     def row_str(self, record, append=False, row_idx=None):
         """format a record without adding it to the table"""
         if type(record) is dict:

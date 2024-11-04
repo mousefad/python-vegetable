@@ -104,7 +104,11 @@ class TableOutput(OutputFormatter):
         Args:
             table (Table): a table for which to produce a the mast_head string.
         """
-        return self.header(table)
+        result = self.header(table)
+        if len(result) > 0:
+            result += self.record_separator
+        result += self.separator(table)
+        return result
 
     def row(self, table, row_values, row_idx):
         """
