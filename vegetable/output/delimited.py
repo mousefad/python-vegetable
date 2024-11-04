@@ -60,7 +60,7 @@ class DelimitedOutput(OutputFormatter):
             table (Table): the table to format into a delimited string.
             limit (int): if +ve output only the first "limit" rows, if -ve, just the last "limit" rows.
         """
-        if limit is None:
+        if limit is None or limit == 0:
             data = table.data 
         elif limit > 0:
             data = table.data[:limit]
@@ -72,7 +72,7 @@ class DelimitedOutput(OutputFormatter):
         for row_idx in range(len(data)):
             if s != "":
                 s += "\n"
-            s += self.row(table, table.data[row_idx], row_idx)
+            s += self.row(table, data[row_idx], row_idx)
         return s
 
     def header(self, table):

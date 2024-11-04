@@ -9,7 +9,12 @@ class JsonOutput(OutputFormatter):
         self.json_kwargs = kwargs
 
     def __call__(self, table, limit):
-        data = table.data if limit is None else table.data[:limit]
+        if limit is None or limit == 0:
+            data = table.data 
+        elif limit > 0:
+            data = table.data[:limit]
+        else:
+            data = table.data[limit:]
         if self.rows is dict:
             return json.dumps(data, **self.json_kwargs)
         else:

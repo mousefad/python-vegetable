@@ -36,7 +36,14 @@ class TableOutput(OutputFormatter):
         the expand property is set for the column, the column will be expanded to the width of the\
         longest data item.
         """
-        if len(table.data) > 0:
+        if limit is None or limit == 0:
+            data = table.data 
+        elif limit > 0:
+            data = table.data[:limit]
+        else:
+            data = table.data[limit:]
+
+        if len(data) > 0:
             for column in [x for x in table.columns if x.expand]:
                 max_width = max(
                     [
@@ -48,7 +55,7 @@ class TableOutput(OutputFormatter):
                                 highlight=False,
                             )
                         )
-                        for row_values in table.data
+                        for row_values in data
                     ]
                 )
                 if max_width > column.aligner.width:
@@ -57,18 +64,12 @@ class TableOutput(OutputFormatter):
                     # )
                     column.aligner.width = max_width
         s = ""
-        if self.header:
-            s += self.header(table)
-            sep = self.separator(table)
-            if len(sep) > 0:
-                s += "\n"
-                s += sep
-        for row_idx in range(len(table.data)):
-            if limit and row_idx >= limit:
-                break
+        if self.show_header:
+            s += self.mast_head(table)
+        for row_idx in range(len(data)):
             if s != "":
                 s += "\n"
-            s += self.row(table, table.data[row_idx], row_idx)
+            s += self.row(table, data[row_idx], row_idx)
         return s
 
     def header(self, table):

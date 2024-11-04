@@ -28,6 +28,5 @@ for n in range(1, 101):
 
 # limit output to only top 10 rows by Power
 t.sort("Power", reverse=True)
-t.limit = 15
-
+t.limit = 10
 print(t)

@@ -2,6 +2,7 @@ bin
 include
 lib
 lib64
+dist
 project.env
 pyvenv.cfg
 **/__pycache__
