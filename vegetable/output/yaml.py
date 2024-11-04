@@ -1,9 +1,9 @@
 import yaml
 
-from vegetable.output import TableFormatter
+from vegetable.output import OutputFormatter
 
 
-class YamlFormat(TableFormatter):
+class YamlOutput(OutputFormatter):
     def __init__(self, rows=dict, **kwargs):
         assert rows in (dict, list)
         self.rows = rows
@@ -15,6 +15,3 @@ class YamlFormat(TableFormatter):
             return yaml.safe_dump(data, **self.json_kwargs)
         else:
             return yaml.safe_dump([list(x.values()) for x in data], **self.json_kwargs)
-
-    def header(self, table):
-        return self.delimiter.join([x.name for x in table.columns])

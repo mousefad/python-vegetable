@@ -1,84 +1,19 @@
 """Tabular data formatter with column types/formatting options and other features."""
 
-__version__ = "1.0"
+__version__ = "1.1.0"
 
 import sys
 import re
-from vegetable.output.table import TableFormat
+from vegetable.output.table import TableOutput
 from vegetable.format import *
-
-
-class TableColumn:
-    def __init__(
-        self,
-        name,
-        table,
-        index,
-        type=str,
-        align=None,
-        width=None,
-        expand=True,
-        nvl="",
-        evl="?",
-        fill=None,
-        thousands=False,
-        precision=2,
-        plus=False,
-        formatter=None,
-        highlighter=None,
-    ):
-        self.name = name
-        self.table = table
-        self.index = index
-        self.nvl = nvl
-        self.evl = evl
-        self.expand = expand
-        if width is None:
-            width = len(name)
-        if len(name) > width:
-            width = len(name)
-        if align is None:
-            align = {None: "L", int: "R", float: "R", str: "L"}.get(type)
-            if align is None:
-                align = "L"
-        self.aligner = PaddedStringFormatter(width, align, fill)
-        if isinstance(formatter, ValueFormatter) or callable(formatter):
-            self.formatter = formatter
-        else:
-            if type is float:
-                self.formatter = FloatFormatter(width, precision, fill, plus, thousands)
-            elif type is int:
-                self.formatter = IntFormatter(width, fill, plus, thousands)
-            else:
-                self.formatter = str
-        self.highlighter = highlighter
-
-    def __str__(self):
-        return f"column name={self.name} width={self.aligner.width} formatter={self.formatter}"
-
-    @property
-    def aligned_name(self):
-        return self.aligner(self.name)
-
-    def format(self, value, pad):
-        try:
-            if value is None:
-                formatted = self.nvl
-            else:
-                formatted = self.formatter(value)
-        except:
-            formatted = self.evl
-        if not pad:
-            return formatted
-        else:
-            return self.aligner(formatted)
+from vegetable.column import *
 
 
 class Table:
-    def __init__(self, formatter=TableFormat()):
+    def __init__(self, output=TableOutput()):
         self.columns = list()
         self.data = list()
-        self.formatter = formatter
+        self.output = output
         self.limit = None
 
     def column(self, name, **kwargs):
@@ -109,10 +44,10 @@ class Table:
         return rec
 
     def header_str(self):
-        return self.formatter.header(self)
+        return self.output.header(self)
 
     def separator_str(self):
-        return self.formatter.separator(self)
+        return self.output.separator(self)
 
     def row_str(self, record, append=False, row_idx=None):
         """format a record without adding it to the table"""
@@ -131,10 +66,10 @@ class Table:
     def row_str_dict(self, record, append, row_idx):
         if append:
             self.add_dict(record)
-        return self.formatter.row(self, record, row_idx)
+        return self.output.row(self, record, row_idx)
 
     def sort(self, key, reverse=False):
         self.data.sort(key=lambda x: x[key], reverse=reverse)
 
     def __str__(self):
-        return self.formatter(self, limit=self.limit)
+        return self.output(self, limit=self.limit)

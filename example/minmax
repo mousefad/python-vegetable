@@ -13,7 +13,7 @@ minmax = HighlightMinMax(
 # create a Table and define some columns
 t = Table()
 t.column("Engine", formatter=lambda x: f"#{x}")
-t.column("Power", highlighter=minmax)
+t.column("Power", type=int, highlighter=minmax)
 
 for n in range(1, 10):
     t.row([n, randint(0, 105)])

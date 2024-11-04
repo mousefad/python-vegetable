@@ -2,7 +2,7 @@ Format tabular data in various ways with explicitly defined columns
 that can each have their own expected types, formatting and highlighting.
 
 Features
---------
+========
 
 -  Specify columns with data types / widths, formatting functions,
    null-value indicators and processing exception indicators.
@@ -14,10 +14,31 @@ Features
 -  Value highlighting rules: by ranges, trends, min/max and others.
 
 
-TODO
-----
+Quick Start
+===========
 
--  Multi-column sorting
+::
+
+        # pip install vegetable
+        from vegetable import Table()
+        from vegetable.highlight import HighlightMinMax
+        from colored import Fore
+
+        t = Table()
+        t.column("Supplier")
+        t.column(
+            "Cost", 
+            type=float, scale=2, 
+            highlighter=HighlightMinMax(min=Fore.green, max=Fore.red),
+        )
+
+        t.row(["Convenience store", 12.99])
+        t.row(["Wholesaler", "10.29"])
+        t.row(["Internet store", 11.56])
+        t.row(["Dodgy pub geezer", 5.00])
+
+        print(t)
+
 
 
 Building & Running
@@ -25,12 +46,12 @@ Building & Running
 
 ::
 
-       $ git clone https://github.com/mousefad/python-vegetable ~/vegetable
-       $ cd ~/vegetable
-       $ python -m venv .
-       $ . bin/activate
-       $ pip install --upgrade pip
-       $ pip install .
+        $ git clone https://github.com/mousefad/python-vegetable ~/vegetable
+        $ cd ~/vegetable
+        $ python -m venv .
+        $ . bin/activate
+        $ pip install --upgrade pip
+        $ pip install .
 
 
 Complete Data Mode
@@ -72,5 +93,11 @@ get string values for the table headers, separators and rows with
         print(t.separator_str())
         for desc, num in gather_data():
             print(t.row_str([desc, num]))
+
+
+TODO
+====
+
+-  Multi-column sorting
 
 

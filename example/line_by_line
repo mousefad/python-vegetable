@@ -5,7 +5,6 @@ import time
 import random
 from vegetable import Table
 
-
 def get_things():
     for thing in ["Splunger", "Spranger", "Dibbonosicator", "Unsplunger"]:
         time.sleep(0.33333)
