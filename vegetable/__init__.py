@@ -1,6 +1,6 @@
 """Tabular data formatter with column types/formatting options and other features."""
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 import sys
 import re
