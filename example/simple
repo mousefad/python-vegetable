@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+from vegetable import Table
+from vegetable.highlight import HighlightMinMax, HighlightRange
+from colored import Fore, Style
+
+
+def main():
+    minmax = HighlightMinMax(min=Fore.green, max=Fore.red)
+
+    t = Table()
+    t.column("Supplier")
+    t.column("Cost", type=float, scale=2, nvl="-", highlighter=minmax)
+
+    t.row(["Convenience store", 12.99])
+    t.row(["Wholesaler", "10.29"])
+    t.row(["Internet store", 11.56])
+    t.row(["Dodgy pub geezer", 5.00])
+    t.row(["Imaginary supplier", None])
+
+    print(t)
+
+
+if __name__ == "__main__":
+    main()
