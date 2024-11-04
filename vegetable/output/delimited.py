@@ -106,7 +106,7 @@ class DelimitedOutput(OutputFormatter):
         Args:
             table (Table): a table for which to produce a row string.
             row_values (dict): a dict where keys are column names, and values are unformattred data items.
-            row_idx (int): the row index. May be None if not known (partial output mode).
+            row_idx (int): the row index. May be None if not known (line-by-line output mode).
         """
         rec = list()
         for c in table.columns:

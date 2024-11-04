@@ -34,7 +34,7 @@ class Highlighter(ABC):
             value (any type): the value in the source data before any formatting has been applied.
             string (str): the formatted string value of the field including whitespace padding.
             column (TableColumn): link to column (and table) details.
-            row_idx (int or None): data row number if known, if not (i.e. partial mode) will be None.
+            row_idx (int or None): data row number if known, if not (i.e. line-by-line mode) will be None.
         """
         pass
 

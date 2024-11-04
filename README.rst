@@ -19,39 +19,34 @@ Quick Start
 
 ::
 
-        # pip install vegetable
-        from vegetable import Table()
-        from vegetable.highlight import HighlightMinMax
-        from colored import Fore
+        # pip install vegetable first
+        from vegetable import Table
 
         t = Table()
         t.column("Supplier")
-        t.column(
-            "Cost", 
-            type=float, scale=2, 
-            highlighter=HighlightMinMax(min=Fore.green, max=Fore.red),
-        )
-
+        t.column("Cost", type=float)
         t.row(["Convenience store", 12.99])
         t.row(["Wholesaler", "10.29"])
         t.row(["Internet store", 11.56])
         t.row(["Dodgy pub geezer", 5.00])
-
         print(t)
 
 
 
-Building & Running
-==================
+Manual Installation From Repo
+=============================
 
 ::
 
-        $ git clone https://github.com/mousefad/python-vegetable ~/vegetable
-        $ cd ~/vegetable
+        $ git clone https://github.com/mousefad/python-vegetable vegetable
+        $ cd vegetable
         $ python -m venv .
         $ . bin/activate
         $ pip install --upgrade pip
         $ pip install .
+        $ export PYTHONPATH="$PYTHONPATH:$PWD"
+
+To run `examples/network_traffic` you may also need to `pip install click`.
 
 
 Complete Data Mode
@@ -82,15 +77,15 @@ Line-by-Line Mode
 
 In applications where we want to print data as it is gathered, we can 
 get string values for the table headers, separators and rows with 
-`header_str()`, `separator_str()` and `row_str(...)` functions:
+`header_str()`, `separator_str()` `mast_head()` and `row_str(...)` 
+functions:
 
 ::
 
         t = Table()
         t.column("Item Desc")
         t.column("Qty", type=int)
-        print(t.header_str())
-        print(t.separator_str())
+        print(t.mast_head())
         for desc, num in gather_data():
             print(t.row_str([desc, num]))
 
@@ -98,6 +93,7 @@ get string values for the table headers, separators and rows with
 TODO
 ====
 
+-  Better unit test coverage
 -  Multi-column sorting
 
 

@@ -45,7 +45,7 @@ class FloatFormatter(ValueFormatter):
     for output as fixed width columns in a table.
     """
 
-    def __init__(self, width, scale=2, fill=False, plus=False, thousands=False):
+    def __init__(self, width, scale, fill=False, plus=False, thousands=False):
         """
         Create a functor object for formatting floating point values.
 
@@ -56,6 +56,8 @@ class FloatFormatter(ValueFormatter):
             plus (bool): if True always show the sign, even if it's "+"
             thousands (bool): if True, include thousands separaors.
         """
+        if scale is None:
+            scale = 2
         assert type(width) is int and width > 0
         assert type(scale) is int and scale >= 0
         self.format = "{:"
